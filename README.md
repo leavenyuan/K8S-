@@ -120,11 +120,13 @@ ingress通过node port暴露服务
 deployment时无状态服务，不需要持久化数据，statefulsets适用于有状态的服务，需要持久化数据到磁盘，daemonsets适用于每个node的一个pod的无状态服务的情况
 ```
 
-19. 上次启动为何报错
+19. Pod上次启动为何报错
 ```
 kubectl logs xxx -p
 ```
 
-20. Grafna  监控内存、CPU、网络、
-   内存曲线不波动，可能是分配不合理（分配比较多）；服务不是内存型的(java)
-   和top性能命令行的差异，指标选择的差异(container_memory_working_set_bytes)
+20. Grafna  监控内存、CPU、网络、GPU
+```
+内存曲线不波动，可能是分配不合理（分配比较多）；服务不是内存型的(java)
+和top性能命令行的差异，指标选择的差异(container_memory_working_set_bytes)
+```
