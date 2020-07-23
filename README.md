@@ -68,4 +68,63 @@ kubectl delete pod {podName} -n {namespace}
 ```
 for file in `kubectl get pods --all-namespaces -o jsonpath="{.items[*].spec.containers[*].image}"`;do echo $file;done | sort | uniq
 ```
+10. 查看某个pod的yaml
+```
+kubectl get pod -n default xxxx -o yaml
+```
 
+11. kubectl命令dashboard
+   Rancher
+   
+12. request 所调度的节点上至少应该分配到的cpu和内存资源；limits 真正能使用的资源
+
+13. 查看节点
+```
+kubectl get nodes
+```
+
+14. 查看节点详情, 查看cpu、内存使用情况，该节点上有哪些pod
+```
+kuebctl decribe node xxxx
+```
+
+15. 从pod拷贝文件
+```
+kubectl cp pod:dirname.log  out.log
+```
+
+15. 进入交互方式
+```
+kubectl exec -it -n default xxx bash
+```
+
+16. 当前pod的资源使用情况
+```
+kubectl top -n xxxx
+```
+
+17. 查看资源字段具体含义
+```
+kubectl expain deployments.spec.minReadySeconds
+```
+
+18. 重点说明
+```
+179854568
+一个pod可以包含多个container，共享网络，ip、端口
+ip连通性说明：
+域名只在k8s pod内联通
+ingress通过node port暴露服务
+内部访问路径：pod -> service name -> service ip(optional) -> pod ip
+外部访问路径: ingress port + path -> pod ip
+deployment时无状态服务，不需要持久化数据，statefulsets适用于有状态的服务，需要持久化数据到磁盘，daemonsets适用于每个node的一个pod的无状态服务的情况
+```
+
+19. 上次启动为何报错
+```
+kubectl logs xxx -p
+```
+
+20. Grafna  监控内存、CPU、网络、
+   内存曲线不波动，可能是分配不合理（分配比较多）；服务不是内存型的(java)
+   和top性能命令行的差异，指标选择的差异(container_memory_working_set_bytes)
